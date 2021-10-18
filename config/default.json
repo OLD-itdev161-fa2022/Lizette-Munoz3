@@ -1,3 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://munozl8:munozl8@cluster0.ny3n9.mongodb.net/test?retryWrites=true&w=majority"
+    
+  "mongoURI": "mongodb+srv://munozl8:munozl8@cluster0.ny3n9.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "Mysecret"
 }

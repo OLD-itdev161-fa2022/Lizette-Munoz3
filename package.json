@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node -r esm server.js",
     "server": "nodemon -r esm server.js",
-      "client": "npm start --prefix client",
+    "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -27,7 +27,9 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-validator": "^6.13.0",
-    "mongoose": "^6.0.11"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.11",
+    "typescript": "^4.4.4"
   },
   "devDependencies": {
     "concurrently": "^6.3.0",

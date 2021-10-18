@@ -12,11 +12,11 @@ class App extends React.Component {
       .then((response) => {
         this.setState({
           data: response.data
-        });
+        })
       })
       .catch((error) => {
         console.error(`Error fetching data: ${error}`);
-      });
+      })
   }
 
   render() {
