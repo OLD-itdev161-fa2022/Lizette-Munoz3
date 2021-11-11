@@ -45,7 +45,7 @@ class App extends React.Component{
               {this.state.data}
             </Routes>
             <Routes>
-              <Route  exact path ="/Register" component = {Register}/>fvd
+              <Route  exact path ="/register" component = {Register}/>fvd
               <Route exact path="/login" component={Login}/>
            </Routes>
           </main>
