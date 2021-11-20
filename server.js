@@ -6,8 +6,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import User from './models/User';
+import Post from './models/Post';
 import auth from './middleware/auth';
-
 
 // Initialize express application
 const app = express();
@@ -64,7 +64,6 @@ app.post(
                     .status(400)
                     .json({ errors: [{ msg: 'User already exists' }] });
                 }
-
                 // Create a new user
                 user = new User({
                     name: name,
@@ -77,7 +76,6 @@ app.post(
                     email: email,
                     password: password
                 });
-
                 // Encrypt the password
                 const salt = await bcrypt.genSalt(10);
                 user.password = await bcrypt.hash(password, salt);
@@ -97,7 +95,6 @@ app.post(
  * @route GET api/auth
  * @desc Authenticate user
 */
-
 app.get('/api/auth', auth, async(req, res) => {
     try {
         const user = await User.findById(req.user.id);
@@ -107,8 +104,6 @@ app.get('/api/auth', auth, async(req, res) => {
         
     }
 });
-
-
 /**
  * @route POST api/login
  * @desc Login user
@@ -167,10 +162,70 @@ const returnToken = (user, res)=>{
         }
     );
 };
+// Post endpoints
+/**
+ * @route POST api/posts
+ * @desc Create post
+ */
+app.post(
+  '/api/posts',
+  [
+    auth,
+    [
+      check('title', 'Title text is required')
+        .not()
+        .isEmpty(),
+      check('body', 'Body text is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    } else {
+      const { title, body } = req.body;
+      try {
+        // Get the user who created the post
+        const user = await User.findById(req.user.id);
+
+        // Create a new post
+        const post = new Post({
+          user: user.id,
+          title: title,
+          body: body
+        });
+
+        // Save to the db and return
+        await post.save();
+
+        res.json(post);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('Server error');
+      }
+    }
+  }
+);
+/**
+ * @route GET api/posts
+ * @desc Get posts
+ */
+app.get('/api/posts', auth, async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ date: -1 });
+
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error');
+  }
+});
 
 
 
 
 // Connection listener
 const port = 5000;
-app.listen(port, () => console.log('Express server running on port',port));
+app.listen(port, () => console.log(`Express server running on port ${port}`));
