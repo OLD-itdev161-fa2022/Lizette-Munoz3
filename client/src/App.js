@@ -6,6 +6,8 @@ import Register from './componets/Register/Register';
 import Login from './componets/Login/Login';
 import PostList from './componets/PostList/PostList';
 import Post from './componets/Post/Post';
+import CreatePost from './componets/Post/CreatePost';
+import EditPost from './componets/Post/EditPost';
 
 
 class App extends React.Component {
