@@ -2,12 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './App.css';
-import Register from './components/Register/Register';
-import Login from './components/Login/Login';
-import PostList from './components/PostList/PostList';
-import Post from './components/Post/Post';
-import CreatePost from './components/Post/CreatePost';
-import EditPost from './components/Post/EditPost';
+import Register from './componets/Register/Register';
+import Login from './componets/Login/Login';
+import PostList from './componets/PostList/PostList';
+import Post from './componets/Post/Post';
+
 
 class App extends React.Component {
   state = {
